@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show/Hide Image</title>
+    <style>
+        body {
+            text-align: left;
+            font-family: Arial, sans-serif;
+        }
+
+        #image-container {
+            display: inline-block;
+            padding: 3px;
+            border: 2px solid #333; /* Add border to the image container */
+        }
+
+        #image {
+            padding: 4px; /* Add padding for better appearance */
+            transition: opacity 0.3s ease;
+        }
+
+        #hide-image:checked ~ #image-container #image {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Übung 2.2</h1>
+<input type="checkbox" id="hide-image">
+<label for="hide-image">hide and show via checkbox</label>
+<br>
+<br>
+<div id="image-container">
+    <img id="image" src="https://kaul.inf.h-brs.de/ccm/we/ws23/resources/assets/h-brs.jpg" alt="Your Image">
+</div>
+</body>
+</html>

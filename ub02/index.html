@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FreeCodeCamp Umfrage</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+        h1{
+            text-align: center;
+        }
+        body {
+            background-color: #a9d7d1;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            background-color: snow;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+        }
+
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            text-align: right;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Survey Form</h1>
+<div class="container">
+    <form action="#" method="post">
+        <table>
+            <tr>
+                <th colspan="2" style="text-align: center">
+                    Let us know how we can improve FreeCodeCamp
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <label for="name">* Name:
+                </th>
+                <td>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="email">* Email:
+                </th>
+                <td>
+                    <input type="text" id="email" name="email" placeholder="Enter your email" required>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="age">* Age:
+                </th>
+                <td>
+                    <input type="text" id="age" name="age" placeholder="Age" required>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="role">Which option best describes your role?
+                </th>
+                <td>
+                    <select id="role" name="role">
+                        <option value="student">Student</option>
+                        <option value="professional">Professional</option>
+                        <option value="Eingestelte">Other</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    How likely is that you would recommend FreeCodeCamp to a friend?
+                </th>
+                <td>
+                    <input type="radio" id="definitely" name="recommend" value="definitely">
+                    <label for="definitely">Definitely</label><br>
+                    <input type="radio" id="maybe" name="recommend" value="maybe">
+                    <label for="maybe">Maybe</label><br>
+                    <input type="radio" id="notSure" name="recommend" value="notSure">
+                    <label for="notSure">Not Sure</label><br>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="likeMost">What do you like most in FCC?
+                </th>
+                <td>
+                    <select id="likeMost" name="likeMost">
+                        <option value="Select an option" disabled selected>Select an option</option>
+                        <option value="tutorials">Tutorials</option>
+                        <option value="projects">Projects</option>
+                        <option value="community">Community</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Things that should be improved in the future (check all that apply):
+                </th>
+                <td>
+                    <input type="checkbox" id="frontEndProjects"  value="frontEndProjects">
+                    <label for="frontEndProjects">Front-end Projects</label><br>
+                    <input type="checkbox" id="backEndProjects"  value="backEndProjects">
+                    <label for="backEndProjects">Back-end Projects</label><br>
+                    <input type="checkbox" id="dataVisualization"  value="dataVisualization">
+                    <label for="dataVisualization">Data Visualization</label><br>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
