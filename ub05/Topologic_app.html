@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topological Sort</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            margin: 100px;
+        }
+
+        #graphInput {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        #result {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h2>Topological Sort</h2>
+
+<div>
+    <label for="graphInput">Enter Graph Relationships: (A->B),etc..</label>
+    <div id="graphInput" contenteditable="true"></div>
+    <button onclick="performTopologicalSort()">Sort</button>
+</div>
+
+<div id="result">
+    <h3>Result:</h3>
+    <p id="topologicalSortResult"></p>
+</div>
+
+<script>
+    function performTopologicalSort() {
+        var graphInput = document.getElementById('graphInput').innerText;
+
+        if (graphInput === "") {
+            alert("Bitte geben Sie den Graph.");
+            return;
+        }
+
+        //Regex Control of the string Format
+        var regex = /^[A-Za-z0-9]+->[A-Za-z0-9]+(,[A-Za-z0-9]+->[A-Za-z0-9]+)*$/;
+
+        if (!regex.test(graphInput)) {
+            alert("Invalid input format. Use the format 'A->B,B->C,C->D'");
+            return;
+        }
+
+        // Assuming the input is in the format "A->B,B->C,C->D"
+        var relationships = graphInput.split(',');
+
+        // Convert relationships into an adjacency list
+        var adjacencyList = {};
+        relationships.forEach(function (relation) {
+            var nodes = relation.split('->');
+            var fromNode = nodes[0];
+            var toNode = nodes[1];
+
+            if (!adjacencyList[fromNode]) {
+                adjacencyList[fromNode] = [];
+            }
+
+            adjacencyList[fromNode].push(toNode);
+        });
+
+        // Perform topological sort
+        var result = topologicalSort(adjacencyList);
+
+        // Display result
+        document.getElementById('topologicalSortResult').innerText = result.join(', ');
+    }
+
+    function topologicalSort(adjacency) {
+        var visited = {};
+        var result = [];
+
+        function visit(node) {
+            if (!visited[node]) {
+                visited[node] = true;
+
+                if (adjacency[node]) {
+                    adjacency[node].forEach(visit);
+                }
+
+                result.unshift(node);
+            }
+        }
+
+        for (var node in adjacency) {
+            visit(node);
+        }
+
+        return result;
+    }
+</script>
+</body>
+</html>

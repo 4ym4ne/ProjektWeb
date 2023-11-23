@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Measurement</title>
+</head>
+<body>
+
+<script>
+    function measurePerformance(property) {
+        const iterations = 1000;
+        const element = document.createElement('div');
+        const container = document.body;
+
+        let totalTime = 0;
+
+        for (let i = 0; i < iterations; i++) {
+            const startTime = performance.now();
+
+            // Access the specified property
+            const value = element[property];
+
+            const endTime = performance.now();
+            const elapsedTime = endTime - startTime;
+
+            totalTime += elapsedTime;
+        }
+
+        // Calculate average time
+        const averageTime = totalTime / iterations;
+
+        return averageTime;
+    }
+
+    function displayResults() {
+        const properties = ['innerHTML', 'innerText', 'textContent', 'outerHTML'];
+
+        // Create table header
+        console.log('| Property | Avrg. Time (ms) |');
+        console.log('|----------|-----------------|');
+
+        // Measure and display performance for each property
+        properties.forEach(property => {
+            const averageTime = measurePerformance(property);
+            console.log(`| ${property} | ${averageTime.toFixed(4)} |`);
+        });
+    }
+
+    // Display results when the page has loaded
+    window.onload = displayResults;
+</script>
+
+</body>
+</html>

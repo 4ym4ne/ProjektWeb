@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rednerliste</title>
+</head>
+
+<body>
+
+<h1>Rednerliste</h1>
+<label for="item">Neuer Redner :</label><input id="item" onkeyup="handleKeyPress(event)" type="text">
+<button onclick="addItem()">Add Objekt</button>
+<button onclick="clearAll()">Delete all</button>
+<div id="liste"></div>
+
+<script>
+    let speakersList = [];
+    let startTime;
+    let elapsedTime = 0;
+    let timerInterval;
+    let runningSpeaker;
+
+    function handleKeyPress(event) {
+        if (event.key === "Enter") {
+            addItem();
+            document.getElementById('item').value = "";
+        }
+    }
+
+    function addItem() {
+        const speakerName = document.getElementById('item').value;
+        if (speakerName.trim() !== "") {
+            const newSpeaker = { name: speakerName, time: 0 };
+            speakersList.push(newSpeaker);
+            document.getElementById('item').value = "";
+            renderList();
+            startTimer(speakersList.length - 1);
+        }
+    }
+
+    function renderList() {
+        if (speakersList.length !== 0) {
+            if (runningSpeaker !== undefined) {
+                stopTimer(runningSpeaker);
+            }
+
+            let listHTML = '<ul id="renderedlist">';
+            speakersList.forEach(function (speaker, index) {
+                listHTML += `<li>${speaker.name} ` +
+                    `<span id="${index}">${timeToString(speaker.time)}</span>` +
+                    ` <button onclick="startTimer(${index})">Start!</button>` +
+                    ` <button onclick="stopTimer(${index})" style="display: none">Stop!</button>` +
+                    '</li>';
+            });
+            listHTML += '</ul>';
+
+            document.getElementById("liste").innerHTML = listHTML;
+        }
+    }
+
+    function clearAll() {
+        if (runningSpeaker !== undefined) {
+            stopTimer(runningSpeaker);
+            runningSpeaker = undefined;
+        }
+        speakersList = [];
+        document.getElementById("renderedlist").remove();
+    }
+
+    function startTimer(id) {
+        if (runningSpeaker !== undefined) {
+            stopTimer(runningSpeaker);
+        }
+
+        runningSpeaker = id;
+        startTime = Date.now() - speakersList[id].time;
+
+        timerInterval = setInterval(function printTime() {
+            elapsedTime = Date.now() - startTime;
+            document.getElementById(id).innerHTML = timeToString(elapsedTime);
+        }, 10);
+
+        const startBtn = document.getElementById(id).nextElementSibling;
+        startBtn.style.display = "none";
+        startBtn.nextElementSibling.style.display = "inline";
+    }
+
+    function timeToString(time) {
+        let diffInHrs = time / 3600000;
+        let hh = Math.floor(diffInHrs);
+
+        let diffInMin = (diffInHrs - hh) * 60;
+        let mm = Math.floor(diffInMin);
+
+        let diffInSec = (diffInMin - mm) * 60;
+        let ss = Math.floor(diffInSec);
+
+        let diffInMs = (diffInSec - ss) * 100;
+        let ms = Math.floor(diffInMs);
+
+        const formattedMM = mm.toString().padStart(2, "0");
+        const formattedSS = ss.toString().padStart(2, "0");
+        const formattedMS = ms.toString().padStart(2, "0");
+
+        return `${formattedMM}:${formattedSS}:${formattedMS}`;
+    }
+
+    function stopTimer(id) {
+        clearInterval(timerInterval);
+        speakersList[id].time = elapsedTime;
+
+        const stopBtn = document.getElementById(id).nextElementSibling;
+        stopBtn.style.display = "inline";
+        stopBtn.nextElementSibling.style.display = "none";
+    }
+</script>
+
+</body>
+
+</html>
