@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vorrangrelationen</title>
+</head>
+<body>
+
+<h1>Vorrangrelationen</h1>
+
+<form id="relationForm">
+    <label for="relationInput">Vorrangrelation eingeben:</label>
+    <input type="text" id="relationInput" placeholder="z.B. {schlafen,studieren};{essen,studieren};{studieren,prüfen}">
+    <button type="button" onclick="processRelations()">Berechnen</button>
+</form>
+
+<h2>Topologische Sortierung:</h2>
+<ul id="resultList"></ul>
+
+<script>
+    class Vorrang {
+        constructor(relations) {
+            this.graph = new Map();
+            this.inDegreeMap = new Map();
+
+            for (const [source, target] of relations) {
+                if (!this.graph.has(source)) {
+                    this.graph.set(source, new Set());
+                    this.inDegreeMap.set(source, 0);
+                }
+                if (!this.graph.has(target)) {
+                    this.graph.set(target, new Set());
+                    this.inDegreeMap.set(target, 0);
+                }
+                this.graph.get(source).add(target);
+                this.inDegreeMap.set(target, this.inDegreeMap.get(target) + 1);
+            }
+
+            this.queue = Array.from(this.inDegreeMap.keys()).filter(node => this.inDegreeMap.get(node) === 0);
+        }
+
+        [Symbol.iterator]() {
+            return {
+                next: () => {
+                    if (this.queue.length === 0) {
+                        return { done: true };
+                    }
+
+                    const current = this.queue.shift();
+
+                    for (const neighbor of this.graph.get(current)) {
+                        this.inDegreeMap.set(neighbor, this.inDegreeMap.get(neighbor) - 1);
+                        if (this.inDegreeMap.get(neighbor) === 0) {
+                            this.queue.push(neighbor);
+                        }
+                    }
+
+                    return { value: current, done: false };
+                }
+            };
+        }
+    }
+
+    function processRelations() {
+        const inputElement = document.getElementById('relationInput');
+        const resultListElement = document.getElementById('resultList');
+
+
+        const relationsInput = inputElement.value.trim();
+        const relationsArray = relationsInput.split(';').map(pair => pair.slice(1, -1).split(','));
+
+        const vorrangInstance = new Vorrang(relationsArray);
+
+        resultListElement.innerHTML = ''; // Clear previous results
+
+        for (const next of vorrangInstance) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `{${next}}`;
+            resultListElement.appendChild(listItem);
+        }
+    }
+</script>
+
+</body>
+</html>
