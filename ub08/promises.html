@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concatenate Files</title>
+</head>
+<body>
+<div id="output"></div>
+
+<script>
+    // Funktion zum Lesen einer Textdatei und Rückgabe als Promise
+    function readFilePromise(filename) {
+        return new Promise((resolve, reject) => {
+            fetch(filename)
+                .then(response => {
+                    if (!response.ok) {
+                        reject(new Error(`Failed to fetch ${filename}`));
+                    }
+                    return response.text();
+                })
+                .then(data => resolve(data))
+                .catch(error => reject(error));
+        });
+    }
+
+    // Dateinamen
+    const fileA = 'A.txt';
+    const fileB = 'B.txt';
+
+    // Promise-Array für paralleles Lesen von Dateien
+    const promises = [
+        readFilePromise(fileA),
+        readFilePromise(fileB),
+    ];
+
+    // Ausführung der Promises parallel
+    Promise.all(promises)
+        .then(results => {
+            // Extrahieren der Daten
+            const contentA = results[0];
+            const contentB = results[1];
+
+            // Überprüfen, ob die Inhalte korrekt geladen wurden
+            if (contentA && contentB) {
+                // Verknüpfen der Zeilen aus A.txt und B.txt
+                const linesA = contentA.split('\n');
+                const linesB = contentB.split('\n');
+                const concatenatedLines = linesA.map((line, index) => line + ' ' + linesB[index]);
+
+                // Ausgabe der konkatenierten Zeilen auf der Seite
+                const outputElement = document.getElementById('output');
+                concatenatedLines.forEach(line => {
+                    const paragraph = document.createElement('p');
+                    paragraph.textContent = line;
+                    outputElement.appendChild(paragraph);
+                });
+            } else {
+                console.error('Failed to load file contents.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
+</body>
+</html>
