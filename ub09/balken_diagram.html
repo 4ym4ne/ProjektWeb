@@ -4,7 +4,6 @@
 <head>
     <title>Balkendiagramm Stromverbrauch</title>
     <style>
-
         .bar {
             fill: green;
         }
@@ -20,7 +19,7 @@
 <h3>Datenkategorie: Realisierter Stromverbrauch MWh</h3>
 <p>Zeitraum: 09.12.2023, 00:00 - 09.12.2023, 02:15</p>
 <p>Auflösung: Viertelstunde</p>
-<svg width="600" height="400"></svg>
+<svg width="700" height="400"></svg>
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
@@ -84,13 +83,17 @@
         .attr("stroke", "black")
         .text("Verbrauch (MWh)");
 
-    // Erstellen der Balken
+    // Erstellen der Balken mit Animation
     svg.selectAll(".bar")
         .data(data)
         .enter().append("rect")
         .attr("class", "bar")
         .attr("x", d => x(d.Anfang))
         .attr("width", x.bandwidth())
+        .attr("y", height) // Start the bars from the bottom of the chart
+        .attr("height", 0) // Set initial height to 0
+        .transition() // Apply a smooth transition
+        .duration(1000) // Transition duration in milliseconds
         .attr("y", d => y(d.GesamtNetzlastMWh))
         .attr("height", d => height - y(d.GesamtNetzlastMWh));
 </script>
