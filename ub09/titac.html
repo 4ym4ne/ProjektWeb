@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        #spielbrett {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 5px;
+        }
+        .feld {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .feld.occupied {
+            pointer-events: none;
+        }
+        svg {
+            width: 80%;
+            height: 80%;
+        }
+        .X path, .O circle {
+            fill: none;
+            stroke: black;
+            stroke-width: 10;
+        }
+        .X path {
+            d: M20,20 L80,80 M80,20 L20,80;
+        }
+        .O circle {
+            cx: 50;
+            cy: 50;
+            r: 40;
+        }
+    </style>
+</head>
+<body>
+<div id="spielbrett">
+    <!-- 9 Felder-->
+    <div class="feld" data-index="0"></div>
+    <div class="feld" data-index="1"></div>
+    <div class="feld" data-index="2"></div>
+    <div class="feld" data-index="3"></div>
+    <div class="feld" data-index="4"></div>
+    <div class="feld" data-index="5"></div>
+    <div class="feld" data-index="6"></div>
+    <div class="feld" data-index="7"></div>
+    <div class="feld" data-index="8"></div>
+</div>
+<div id="ergebnis"></div>
+<script>
+    const spielbrett = document.getElementById('spielbrett');
+    const felder = document.querySelectorAll('.feld');
+    let aktuellerSpieler = 'X';
+    let spielEnde = false;
+    let gewinnKombinationen = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+    ];
+
+    function pruefeGewinn() {
+        for (const kombination of gewinnKombinationen) {
+            const [a, b, c] = kombination;
+            const feldA = felder[a].querySelector('svg');
+            const feldB = felder[b].querySelector('svg');
+            const feldC = felder[c].querySelector('svg');
+
+            if (
+                feldA && feldB && feldC &&
+                (feldA.classList.contains(aktuellerSpieler) && feldB.classList.contains(aktuellerSpieler) && feldC.classList.contains(aktuellerSpieler))
+            ) {
+                spielEnde = true;
+                document.getElementById('ergebnis').textContent = `Spieler ${aktuellerSpieler} hat gewonnen!`;
+                setTimeout(resetSpiel, 1000); // Restart game after 1 seconds
+                break;
+            }
+        }
+    }
+
+    function resetSpiel() {
+        // Clear the game board
+        felder.forEach(feld => {
+            feld.innerHTML = '';
+            feld.classList.remove('occupied');
+        });
+
+        // Clear the winner message
+        document.getElementById('ergebnis').textContent = '';
+
+        // Reset game state
+        aktuellerSpieler = 'X';
+        spielEnde = false;
+    }
+
+    felder.forEach(feld => {
+        feld.addEventListener('click', () => {
+            if (feld.classList.contains('occupied') || spielEnde) return;
+
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("viewBox", "0 0 100 100");
+            svg.classList.add(aktuellerSpieler);
+
+            if (aktuellerSpieler === 'X') {
+                // Draw 'X'
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                path.setAttribute("d", "M20,20 L80,80 M80,20 L20,80");
+                svg.appendChild(path);
+            } else if (aktuellerSpieler === 'O') {
+                // Draw 'O'
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", "50");
+                circle.setAttribute("cy", "50");
+                circle.setAttribute("r", "40");
+                svg.appendChild(circle);
+            }
+
+            feld.appendChild(svg);
+            feld.classList.add('occupied');
+            pruefeGewinn();
+            aktuellerSpieler = aktuellerSpieler === 'X' ? 'O' : 'X';
+        });
+    });
+</script>
+</body>
+</html>
