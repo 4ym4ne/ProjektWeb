@@ -9,7 +9,11 @@
 </head>
 <body>
 <div class="sidebar" id="sidebar">
-    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+
+    <div class="dropdown">
+        <button class="dropbtn"><a class="dropbtn" href="index.html">  Home</a></button>
+    </div>
+
 
     <div class="dropdown">
         <button class="dropbtn">02 Introduction</button>
@@ -86,7 +90,7 @@
             iframe = document.createElement('iframe');
             iframe.id = 'contentFrame';
             iframe.style.width = '100%';
-            iframe.style.height = '600px';
+            iframe.style.height = '800px';
             container.appendChild(iframe);
         }
 
