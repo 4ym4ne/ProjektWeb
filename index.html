@@ -1,10 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>It Works</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution Navigator</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
+<div class="sidebar" id="sidebar">
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
 
+    <div class="dropdown">
+        <button class="dropbtn">02 Introduction</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="loadPage('ub02/index.html')">Index</a>
+            <a href="#" onclick="loadPage('ub02/image.html')">Images</a>
+            <a href="#" onclick="loadPage('ub02/scrolling.html')">Scrolling</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">03 Flexbox & Grid</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="loadPage('ub03/flexbox.html')">Flexbox</a>
+            <a href="#" onclick="loadPage('ub03/grid_mobile_first.html')">Grid Mobile First</a>
+            <a href="#" onclick="loadPage('ub03/test-normal.html')">Test Normal</a>
+            <a href="#" onclick="loadPage('ub03/WireFrame_grid.html')">WireFrame Grid</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">05 DOM & Rendering</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="loadPage('ub05/DOM-Performance.html')">DOM Performance</a>
+            <a href="#" onclick="loadPage('ub05/Redner.html')">Renderer</a>
+            <a href="#" onclick="loadPage('ub05/Topologic_app.html')">Topologic App</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">06 Klammerpaar & Topology</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="loadPage('ub06/klammerpaar.html')">Klammerpaar</a>
+            <a href="#" onclick="loadPage('ub06/topo.html')">Topology</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">08 Async & Promises</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="loadPage('ub08/async_wait.html')">Async Wait</a>
+            <a href="#" onclick="loadPage('ub08/promises.html')">Promises</a>
+            <a href="#" onclick="loadPage('ub08/www-Navigator.html')">WWW Navigator</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">09 Various Topics</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="loadPage('ub09/balken_diagram.html')">Balken Diagram</a>
+            <a href="#" onclick="loadPage('ub09/titac.html')">Tic Tac Toe</a>
+            <a href="#" onclick="loadPage('ub09/use_the_platform.html')">Use The Platform</a>
+        </div>
+    </div>
+
+    <a href="#menu" class="menu-icon">
+        <i class="fa-solid fa-bars" onclick="myFunction()"></i>
+    </a>
+</div>
+<div class="maincontent">
+    <h1>Einführung in Web Engineering</h1>
+    <div class="container" id="container">
+
+    </div>
+</div>
+
+<script>
+    function loadPage(url) {
+        var container = document.getElementById('container');
+        var iframe = document.getElementById('contentFrame');
+
+        // If the iframe doesn't exist, create it
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.id = 'contentFrame';
+            iframe.style.width = '100%';
+            iframe.style.height = '600px';
+            container.appendChild(iframe);
+        }
+
+        iframe.src = url;
+    }
+</script>
 </body>
 </html>
