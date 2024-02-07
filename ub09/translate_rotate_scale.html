@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Transformationen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        svg {
+            border: 2px solid #000;
+            margin-bottom: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Quadrat -->
+    <rect id="square" x="175" y="175" width="50" height="50" fill="blue" />
+</svg>
+<button id="translateBtn">Translate</button>
+<button id="rotateBtn">Rotate</button>
+<button id="scaleBtn">Scale</button>
+
+<script>
+    document.getElementById('translateBtn').addEventListener('click', function() {
+        document.getElementById('square').setAttribute('transform', 'translate(40,0)');
+    });
+
+    document.getElementById('rotateBtn').addEventListener('click', function() {
+        // Hier nehmen wir an, dass das Quadrat um seinen Mittelpunkt bei (200,200) rotiert wird.
+        document.getElementById('square').setAttribute('transform', 'rotate(60,200,200)');
+    });
+
+    document.getElementById('scaleBtn').addEventListener('click', function() {
+        document.getElementById('square').setAttribute('transform', 'scale(1.7)');
+    });
+</script>
+</body>
+</html>
