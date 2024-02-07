@@ -10,6 +10,12 @@
 <body>
 <div class="sidebar" id="sidebar">
     <button class="menu-toggle" id="toggleButton">☰ Menu</button>
+    <div class="dropdown">
+        <button class="dropbtn">01 Wireframe</button>
+        <div class="dropdown-content">
+            <a href="#" onclick="loadPage('ub01/html_wireframe.html')">HTML Wireframe</a>
+        </div>
+    </div>
 
     <div class="dropdown">
         <button class="dropbtn">02 Introduction</button>
@@ -50,6 +56,7 @@
         <button class="dropbtn">07 Funktionale Prog</button>
         <div class="dropdown-content">
             <a href="#" onclick="loadPage('ub07/spread_operator.html')">Spread-Operator</a>
+            <a href="#" onclick="loadPage('ub07/text_analyze.html')">Text Analyze</a>
         </div>
     </div>
 
@@ -79,7 +86,7 @@
 
 
 <div class="maincontent">
-    <h1>Einführung in Web Engineering</h1>
+    <h1 id="pageTitel">Einführung in Web Engineering</h1>
     <div class="container" id="container">
 
     </div>
@@ -100,7 +107,7 @@
             iframe.setAttribute('frameBorder', '0');
             container.appendChild(iframe);
         }
-
+        document.getElementById("pageTitel").innerText = "";
         iframe.src = url;
     }
 
