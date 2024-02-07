@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Spread Operator in JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Der Spread-Operator in JavaScript</h1>
+    <p>Der Spread-Operator (<code>...</code>) ermöglicht es, ein iterierbares Objekt wie ein Array oder eine Zeichenkette in Elemente/Argumente zu expandieren, die in Funktionsaufrufen verwendet oder in Arrays kopiert werden können. Er kann auch verwendet werden, um Objekteigenschaften in ein neues Objekt zu kopieren.</p>
+    <h2>Beispielverwendung</h2>
+    <p>Ein einfaches Beispiel für die Verwendung des Spread-Operators zum Verbinden von Arrays:</p>
+    <pre><code>
+    // Definieren zweier Arrays
+    const array1 = [1, 2, 3];
+    const array2 = [4, 5, 6];
+
+    // Verwenden des Spread-Operators zum Verbinden der Arrays
+    const kombiniertesArray = [...array1, ...array2];
+
+    console.log(kombiniertesArray); // [1, 2, 3, 4, 5, 6]</code></pre>
+
+    <p>Dieser Operator ist besonders nützlich, wenn man mit Funktionen arbeitet, die eine Vielzahl von Argumenten erwarten oder wenn man schnell Kopien von Arrays/Objekten erstellen möchte, ohne die Originaldaten zu verändern.</p>
+</body>
+</html>
