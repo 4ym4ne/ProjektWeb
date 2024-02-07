@@ -16,20 +16,32 @@
             background-color: snow;
             padding: 20px;
             border-radius: 10px;
-            width: 50%;
-            margin: 0 auto;
+            max-width: 90%; /* Use max-width for responsiveness */
+            margin: 20px auto; /* Adjust margin for spacing */
         }
         table {
             width: 100%;
         }
-
-        td {
+        td, th {
             padding: 10px;
             text-align: left;
         }
         th {
             text-align: right;
-            padding: 10px;
+        }
+        @media (max-width: 768px) { /* Adjustments for tablets and below */
+            .container {
+                width: 100%; /* Full width */
+                padding: 10px; /* Smaller padding */
+            }
+            th, td {
+                display: block; /* Stack them vertically */
+                text-align: left; /* Align text to the left */
+                padding: 5px; /* Reduce padding */
+            }
+            th {
+                text-align: left; /* Align labels to the left */
+            }
         }
     </style>
 </head>
