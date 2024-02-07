@@ -9,16 +9,12 @@
 </head>
 <body>
 <div class="sidebar" id="sidebar">
-
-    <div class="dropdown">
-        <button class="dropbtn"><a class="dropbtn" href="index.html">  Home</a></button>
-    </div>
-
+    <button class="menu-toggle" id="toggleButton">☰ Menu</button>
 
     <div class="dropdown">
         <button class="dropbtn">02 Introduction</button>
         <div class="dropdown-content">
-            <a href="#" onclick="loadPage('ub02/index.html')">Index</a>
+            <a href="#" onclick="loadPage('ub02/index.html')">Survey Form</a>
             <a href="#" onclick="loadPage('ub02/image.html')">Images</a>
             <a href="#" onclick="loadPage('ub02/scrolling.html')">Scrolling</a>
         </div>
@@ -29,7 +25,6 @@
         <div class="dropdown-content">
             <a href="#" onclick="loadPage('ub03/flexbox.html')">Flexbox</a>
             <a href="#" onclick="loadPage('ub03/grid_mobile_first.html')">Grid Mobile First</a>
-            <a href="#" onclick="loadPage('ub03/test-normal.html')">Test Normal</a>
             <a href="#" onclick="loadPage('ub03/WireFrame_grid.html')">WireFrame Grid</a>
         </div>
     </div>
@@ -73,6 +68,8 @@
         <i class="fa-solid fa-bars" onclick="myFunction()"></i>
     </a>
 </div>
+
+
 <div class="maincontent">
     <h1>Einführung in Web Engineering</h1>
     <div class="container" id="container">
@@ -91,11 +88,28 @@
             iframe.id = 'contentFrame';
             iframe.style.width = '100%';
             iframe.style.height = '800px';
+            iframe.style.border = 'none'; // Remove border
+            iframe.setAttribute('frameBorder', '0');
             container.appendChild(iframe);
         }
 
         iframe.src = url;
     }
+
+
+    var toggleButton = document.getElementById('toggleButton');
+    var sidebar = document.getElementById('sidebar');
+
+    toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+
+        // Check if the sidebar is active and update button text accordingly
+        if (sidebar.classList.contains('active')) {
+            toggleButton.innerHTML = '&#10006; Close Menu'; // Sidebar is open
+        } else {
+            toggleButton.innerHTML = '☰ Menu'; // Sidebar is closed
+        }
+    });
 </script>
 </body>
 </html>

@@ -67,3 +67,51 @@ body {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+/* Base styles for the toggle button */
+.menu-toggle {
+    display: none;
+    background-color: #264569;
+    color: white;
+    padding: 15px 20px;
+    width: 100%;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Adjustments for screens smaller than 768px */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -300px; /* Hide sidebar off-screen to the left */
+        transition: 0.5s; /* Smooth transition */
+        z-index: 2; /* Ensure sidebar is above other content */
+        margin-top: 50px;
+    }
+
+    .maincontent {
+        margin-left: 0; /* Adjust margin for smaller screens */
+    }
+
+    /* Display the toggle button on smaller screens */
+    .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    /* Style adjustments for sidebar visibility */
+    .sidebar.active {
+        left: 0; /* Bring sidebar into view */
+    }
+
+    .maincontent {
+        flex-grow: 1; /* Takes the remaining width */
+        margin-top: 50px;
+        padding: 0;
+        background-color: #f4f4f4; /* Or any color you prefer */
+        overflow: auto; /* Add scroll for overflow */
+    }
+}
